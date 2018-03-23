@@ -1,13 +1,13 @@
 clear; close all; clc;
 
 % Load results from last execution
-load('lastResults');
+load('DATA/lastResults');
 fprintf('Plotting execution from %s\n',timeStamp);
 
 % Intermediate Variables
 ABSListComplete = [99 1 5 0];
 NnodesComplete = (1:1:20);
-ABSList = [99 1 5 0];
+ABSList = [99 1 0];
 
 %Plot ecdf for each node configuration
 lgString = cell(length(NnodesList)*length(ABSList),1);
@@ -162,6 +162,26 @@ for a = 1:length(ABSList)
     idx = find(ABSListComplete==ABSList(a));
     errorbar(NnodesList,totCols_mean_final(:,idx),errCols_final(:,idx), ...
      'Color','k','LineWidth',2,'LineStyle','none','Marker','s');
+end
+lg = legend(leg);
+set(lg,'FontSize',14,'Location','NorthWest');
+xlabel('Number of Wi-Fi nodes','FontSize',14);
+ylabel('Collisions','FontSize',14);
+title('Total number of collisions','FontSize',14);
+grid minor;
+
+% Plot the collision probability in the network
+figure(7); hold on;
+for a = 1:length(ABSList)
+    idx = find(ABSListComplete==ABSList(a));
+    prob = totCols_mean_final(:,idx)./(totCols_mean_final(:,idx) + totTtxOK_mean_final(:,idx));
+    plot(NnodesList,prob, ...
+     'Color','k','LineWidth',2,'LineStyle',LineStyleList{idx},'Marker','s');
+    if ABSList(a)~=99
+        leg{a} = char(strcat('ABS',{' '},num2str(ABSList(a))));
+    else
+        leg{a} = 'No LTE';
+    end
 end
 lg = legend(leg);
 set(lg,'FontSize',14,'Location','NorthWest');

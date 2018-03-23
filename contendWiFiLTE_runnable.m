@@ -35,15 +35,15 @@ ColorList = {[255 127 0]./255, [0 255 0]./255, [0 127 255]./255, ...
 % ColorList = {[192 192 192]./255, [48 48 48]./255};
 % ColorList = {'k'};
 % ColorList = {'r','b','g','k','m'};
-         
+
 Niter = 1;
 for idxABS = 1:length(ABSList)
     ABSIndex = ABSList(idxABS);
     % Load LTE interference
-    if     (ABSIndex==0);  load('lteInput_ABS0'); conf.lteInterf = lteInterf;
-    elseif (ABSIndex==1);  load('lteInput_ABS1'); conf.lteInterf = lteInterf;
-    elseif (ABSIndex==5);  load('lteInput_ABS5'); conf.lteInterf = lteInterf;
-    elseif (ABSIndex==99); load('lteInput_ABS1'); conf.lteInterf = 1e-10.*lteInterf;
+    if     (ABSIndex==0);  load('DATA/lteInput_ABS0'); conf.lteInterf = lteInterf;
+    elseif (ABSIndex==1);  load('DATA/lteInput_ABS1'); conf.lteInterf = lteInterf;
+    elseif (ABSIndex==5);  load('DATA/lteInput_ABS5'); conf.lteInterf = lteInterf;
+    elseif (ABSIndex==99); load('DATA/lteInput_ABS1'); conf.lteInterf = 1e-10.*lteInterf;
     else; fprintf('Wrong ABS Index\n'); return;
     end
     for idxNodes = 1:length(NnodesList)

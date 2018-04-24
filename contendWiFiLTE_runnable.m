@@ -1,11 +1,11 @@
 clear; close all;
 runnable = true;
 % Simulation parameters
-ABSList = [99 1];
-NnodesList = [1 5 10 15];
-Niter = 1;
+ABSList = [99 1];  % Can contain 99 (No LTE), 1, 5 or 0
+NnodesList = [1 5 10 15];  % Number of nodes contending for the channel
+Niter = 100;  % Number of iterations in the simulation. Recommended: above 100
 % Sampling rate of Wi-Fi tx/rx
-Fs = 20e6;  % Samples per second (Hz)
+Fs = 20e6;  % Samples per second (Hz). Keep it constant if using 20MHz BW
 % Wi-Fi times in samples (numbers are microseconds)
 WT.SIFS     = round(16e-6 * Fs);  % SIFS parameter
 WT.SLOT     = round(9e-6 * Fs);  % Time slot for 802.11

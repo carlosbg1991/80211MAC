@@ -1,5 +1,9 @@
 clear; close all;
 runnable = true;
+% Simulation parameters
+ABSList = [99 1];
+NnodesList = [1 5 10 15];
+Niter = 1;
 % Sampling rate of Wi-Fi tx/rx
 Fs = 20e6;  % Samples per second (Hz)
 % Wi-Fi times in samples (numbers are microseconds)
@@ -10,13 +14,8 @@ WT.TX       = round(300e-6 * Fs);  % fixed packet transmit time
 WT.ACK      = round(200e-6 * Fs);  % Time to transmit an ACK packet
 WT.TIMEUNIT = round(10000e-6 * Fs); % 100TU in 1 second approximately
 WT.CWmin    = 15;  % Min. contention window (scalar fixed)
-WT.MaxRtx   = 7;  % Max. number of retransmissions before packet drop
-WT.Fs       = Fs;  % To ease the report 
-% Simulation parameters
-ABSList = [99 1];
-% NnodesList = (1:1:20);
-NnodesList = [1 5];
-% NnodesList = 1;
+WT.MaxRtx   = 7;   % Max. number of retransmissions before packet drop
+WT.Fs       = Fs;  % To ease the report
 % Output Parameters - performance evaluation
 totTtxOK_mean_final = zeros(length(NnodesList),length(ABSList));
 avTtx_mean_final = zeros(length(NnodesList),length(ABSList));
@@ -36,7 +35,6 @@ ColorList = {[255 127 0]./255, [0 255 0]./255, [0 127 255]./255, ...
 % ColorList = {'k'};
 % ColorList = {'r','b','g','k','m'};
 
-Niter = 1;
 for idxABS = 1:length(ABSList)
     ABSIndex = ABSList(idxABS);
     % Load LTE interference
@@ -80,7 +78,7 @@ for idxABS = 1:length(ABSList)
 end
 
 timeStamp = regexprep(string(datetime('now')),' ','-');
-save('lastResults','timeStamp','NnodesList','ABSList','tTx_final',...
+save('DATA/lastResults','timeStamp','NnodesList','ABSList','tTx_final',...
      'rBusy_final','ColorList','LineStyleList','totTtxOK_mean_final',...
      'avTtx_mean_final','errTtx_final','avCols_mean_final',...
      'errCols_final','totCols_mean_final');

@@ -7,7 +7,6 @@ fprintf('Plotting execution from %s\n',timeStamp);
 % Intermediate Variables
 ABSListComplete = [99 1 5 0];
 NnodesComplete = (1:1:20);
-ABSList = [99 1 0];
 
 %Plot ecdf for each node configuration
 lgString = cell(length(NnodesList)*length(ABSList),1);
